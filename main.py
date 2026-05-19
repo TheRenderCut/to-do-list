@@ -27,10 +27,22 @@ def remove_tasks(tasks):
     indx = task_no - 1
     print(f"Removed task {task_no}: {tasks[indx]}!")
     tasks.pop(indx)
+def load_tasks(tasks):
+    try:
+        with open("tasks.txt", "r") as file:
+            for line in file:
+                tasks.append(line.strip())
+    except:
+        return
+def save_tasks(tasks):
+    with open("tasks.txt", "w") as file:
+        for tsk in tasks:
+            file.write(tsk + "\n")
 def menu():
     print("-----TO DO LIST-----")
     tasks = []
     user_choice = 0
+    load_tasks(tasks)
     while user_choice != 4:
         print("To-Do List Operations: ")
         print("1. Add Task")
@@ -46,6 +58,7 @@ def menu():
             case 3:
                 remove_tasks(tasks)
             case 4:
+                save_tasks(tasks)
                 print("Exiting....!")
                 break
             case _:
